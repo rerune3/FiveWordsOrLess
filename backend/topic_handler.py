@@ -1,3 +1,5 @@
+from google.appengine.ext import ndb
+
 from proto.topic_proto import TopicRequestProto
 from model.topic_model import TopicModel
 
@@ -6,8 +8,8 @@ class TopicQuery:
 
     @staticmethod
     def get_topic_responses(topic_request):
-        results = ndb.gql(('SELECT * FROM TopicResponseModel '
-                          'WHERE PostID = :1'), list_request.post_id)
+        return ndb.gql(('SELECT * FROM TopicResponseModel '
+                          'WHERE topic = :1'), topic_request.topic)
 
 
 class TopicHandler:
@@ -18,5 +20,4 @@ class TopicHandler:
 
     @staticmethod
     def handle_get_topic_responses(topic_request):
-        TopicResponseModel
-        TopicModel(topic=topic_request.topic, id=topic_request.topic).put()
+        return ndb.Key('TopicResponseModel', topic_request.topic).get()

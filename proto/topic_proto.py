@@ -5,7 +5,7 @@ class TopicRequestProto(messages.Message):
 
 class TopicResponseProto(messages.Message):
     topic_response = messages.StringField(1, required=True)
-    count = messages.IntegerProperty(2, required=False)
+    count = messages.IntegerField(2, required=False)
 
 class TopicStatus(messages.Message):
     status = messages.StringField(1, required=False)

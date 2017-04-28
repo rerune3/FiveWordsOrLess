@@ -18,4 +18,12 @@ class TopicAPI(remote.Service):
         TopicHandler.handle_insert_topic(request)
         return TopicStatus(status='OK')
 
+    @endpoints.method(TopicRequestProto, TopicResponseProto,
+        name='get_topic_responses', path='topic.get_topic_responses',
+        http_method='GET')
+    def get_topic_responses(self, request):
+        results = TopicHandler.handle_get_topic_responses(request)
+        print results
+        return TopicResponseProto()
+
 endpoints_application = endpoints.api_server([TopicAPI])
