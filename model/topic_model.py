@@ -5,5 +5,5 @@ class TopicModel(ndb.Model):
 
 class TopicResponseModel(ndb.Model):
     topic = ndb.StringProperty(required=True)
-    topic_response = ndb.StringProperty(required=True)
-    count = ndb.IntegerProperty(required=True)
+    response = ndb.StringProperty(required=True)
+    count = ndb.IntegerProperty(required=False)
