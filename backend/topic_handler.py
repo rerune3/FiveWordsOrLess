@@ -34,5 +34,9 @@ class TopicHandler:
             response_model.put()
 
     @staticmethod
+    def handle_get_random_topic():
+        pass
+
+    @staticmethod
     def handle_get_topic_responses(topic_request):
         return TopicQuery.get_topic_responses(topic_request)

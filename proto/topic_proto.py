@@ -13,4 +13,4 @@ class TopicResponseListProto(messages.Message):
     response_list = messages.MessageField(TopicResponseProto, 2, repeated=True)
 
 class TopicStatus(messages.Message):
-    status = messages.StringField(1, required=False)
+    status = messages.StringField(1, required=True)

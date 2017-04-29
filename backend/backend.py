@@ -8,7 +8,9 @@ from proto.topic_proto import TopicRequestProto
 from proto.topic_proto import TopicResponseProto
 from proto.topic_proto import TopicResponseListProto
 from proto.topic_proto import TopicStatus
+
 from protorpc import remote
+from protorpc import message_types
 
 
 @endpoints.api(name='topic_api', version='v1', description='API for topics')
@@ -25,6 +27,13 @@ class TopicAPI(remote.Service):
         http_method='POST')
     def insert_topic_response(self, topic_response):
         TopicHandler.handle_insert_topic_response(topic_response)
+        return TopicStatus(status='OK')
+
+    @endpoints.method(message_types.VoidMessage, TopicStatus,
+        name='get_random_topic', path='topic.get_random_topic',
+        http_method='GET')
+    def get_random_topic(self, request):
+        TopicHandler.handle_get_random_topic()
         return TopicStatus(status='OK')
 
     @endpoints.method(TopicRequestProto, TopicResponseListProto,
