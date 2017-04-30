@@ -1,7 +1,11 @@
 from protorpc import messages
 
-class TopicRequestProto(messages.Message):
+class TopicProto(messages.Message):
     topic = messages.StringField(1, required=True)
+    rand_num = messages.FloatField(2, required=False)
+
+class TopicListProto(messages.Message):
+    topic_list = messages.MessageField(TopicProto, 1, repeated=True)
 
 class TopicResponseProto(messages.Message):
     response = messages.StringField(1, required=True)
