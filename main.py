@@ -4,6 +4,8 @@ import jinja2
 import webapp2
 import logging
 
+from middle_layer.request_handler import RequestHandler
+
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
@@ -11,34 +13,37 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 class HomePage(webapp2.RequestHandler):
     def get(self):
-        template_values = {}
-        template = JINJA_ENVIRONMENT.get_template('home.html')
-        self.response.write(template.render(template_values))
+        request_type = self.request.get('request_type', None)
+        if request_type:
+            if request_type == 'GET_TOPIC_RESPONSES':
+                data = json.loads(self.request.get('data'))
+                response = RequestHandler.handle_get_topic_responses(data)
+                self.response.write(response)
+            elif request_type == 'GET_RANDOM_TOPIC':
+                response = RequestHandler.handle_get_random_topic()
+                self.response.write(response)
+            elif request_type == 'GET_TOPIC':
+                pass
+                # response = RequestHandler.handle_insert_new_comment()
+                # self.response.write(response)
+            else:
+                print 'Unknown request type %s' % (request)
+        else:
+            template_values = {}
+            template = JINJA_ENVIRONMENT.get_template('home.html')
+            self.response.write(template.render(template_values))
+
+        return
 
     def post(self):
-        logging.info(self.request.query_string)
-        request_type = self.request.get('request_type')
-        logging.info('hello')
-        if request_type == 'INSERT_TOPIC_RESPONSE':
-            pass
-            data = json.loads(self.request.get('data'))
-            response = RequestHandler.handle_insert_topic_response(data)
-            self.response.write('Got it.')
-        elif request_type == 'GET_TOPIC_RESPONSES':
-            pass
-            # comment = json.loads(self.request.get('comment'))
-            # response = RequestHandler.handle_insert_new_comment(comment)
-            # self.response.write(response)
-        elif request_type == 'GET_RANDOM_TOPIC':
-            pass
-            # response = RequestHandler.handle_insert_new_comment()
-            # self.response.write(response)
-        elif request_type == 'GET_TOPIC':
-            pass
-            # response = RequestHandler.handle_insert_new_comment()
-            # self.response.write(response)
-        else:
-            print 'Unknown request type %s' % (request)
+        request_type = self.request.get('request_type', None)
+        if request_type:
+            if request_type == 'INSERT_TOPIC_RESPONSE':
+                data = json.loads(self.request.get('data'))
+                response = RequestHandler.handle_insert_topic_response(data)
+                self.response.write(response)
+            else:
+                print 'Unknown request type %s' % (request)
 
         return
 

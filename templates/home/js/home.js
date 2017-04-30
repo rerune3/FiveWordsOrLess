@@ -1,7 +1,7 @@
 var home = {};
 
 window.onload = function() {
-
+  // homeHandler.handleGetRandomTopic();
 };
 
 // home.setListeners = function() {

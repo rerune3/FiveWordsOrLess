@@ -16,21 +16,33 @@ homeHandler.handleSendTopicResponse = function(response) {
 
     var params = helper.constructURLParams(request_package);
     var url = window.location.origin + "/?" + params;
-    console.log(url);
-    helper.httpPostAsync(url, homeCallback.handleSendTopicResponseCallback, null);
+    helper.httpPostAsync(url, homeCallback.handleSendTopicResponseCallback);
   }
 };
 
 homeHandler.handleGetTopicResponses = function(topic) {
   if (topic.length > 0) {
-    var object = {
-      "request_type": homeDefine.GET_TOPIC_RESPONSES,
+    var data = {
       "topic": topic,
     };
 
-    var params = helper.constructURLParams(object);
-    var url = window.location.origin + '/?' + params;
+    var request_package = {
+      "request_type": homeDefine.GET_TOPIC_RESPONSES,
+      "data": JSON.stringify(data)
+    }
 
+    var params = helper.constructURLParams(request_package);
+    var url = window.location.origin + '/?' + params;
     helper.httpGetAsync(url, homeCallback.handleGetTopicResponsesCallback);
   }
+};
+
+homeHandler.handleGetRandomTopic = function() {
+  var request_package = {
+    "request_type": homeDefine.GET_RANDOM_TOPIC,
+  }
+
+  var params = helper.constructURLParams(request_package);
+  var url = window.location.origin + '/?' + params;
+  helper.httpGetAsync(url, homeCallback.handleGetRandomTopicCallback);
 };

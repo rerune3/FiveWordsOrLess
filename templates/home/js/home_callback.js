@@ -8,15 +8,19 @@ homeCallback.handleGetTopicResponsesCallback = function(reply) {
   console.log(reply);
 };
 
+homeCallback.handleGetRandomTopicCallback = function(reply) {
+  console.log(reply);
+}
+
 homeCallback.enterKeyUpCallback = function(e) {
   var key = e.keyCode ? e.keyCode : e.which;
   var activeElement = document.activeElement;
 
     if (key === 13) { // Enter key
       if (activeElement.id === "response") {
-        document.getElementById("response").value = "";
         var text = document.getElementById("response").value;
         homeHandler.handleSendTopicResponse(text);
+        document.getElementById("response").value = "";
       }
     } else {
       if (activeElement.id === "response") {

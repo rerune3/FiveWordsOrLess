@@ -18,6 +18,7 @@ class TopicQuery:
 
     @staticmethod
     def get_topic_response(topic_response):
+        logging.info(topic_response)
         return ndb.Key('TopicResponseModel', topic_response.response).get()
 
     @staticmethod
