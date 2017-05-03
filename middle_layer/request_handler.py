@@ -35,3 +35,8 @@ class RequestHandler:
     def handle_get_topic_responses(data):
         url = '%s/topic.get_topic_responses?' % (TOPICS_API_URL);
         return RequestHandler.send_get_request(url, data)
+
+    @staticmethod
+    def handle_search_topics(data):
+        url = '%s/topic.search_topics?' % (TOPICS_API_URL);
+        return RequestHandler.send_get_request(url, data)

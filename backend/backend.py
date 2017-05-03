@@ -5,6 +5,7 @@ from topic_handler import TopicHandler
 from backend_helper import BackendHelper
 from topics import TopicListString
 
+from proto.topic_proto import SearchProto
 from proto.topic_proto import TopicProto
 from proto.topic_proto import TopicListProto
 from proto.topic_proto import TopicResponseProto
@@ -56,5 +57,11 @@ class TopicAPI(remote.Service):
     def get_topic_responses(self, request):
         results = TopicHandler.handle_get_topic_responses(request)
         return BackendHelper.topic_response_results_to_proto(request.topic, results)
+
+    @endpoints.method(SearchProto, TopicListProto,
+        name='search_topics', path='topic.search_topics',
+        http_method='GET')
+    def search_topics(self, request):
+        return TopicHandler.handle_search_topics(request)
 
 endpoints_application = endpoints.api_server([TopicAPI])

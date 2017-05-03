@@ -1,3 +1,7 @@
+body {
+  background-color: grey;
+}
+
 #modal_window {
   position: fixed;
   background-color: grey;
@@ -18,13 +22,58 @@
   text-align: center;
 }
 
+#topic {
+  font-size: 250%;
+  text-decoration:underline;
+}
+
 #response {
   /*border: none;*/
   resize: none;
   width: 80%;
   height: 20%;
   margin-left: 10%;
-  margin-top: 5%;
+  margin-top: 3%;
+  margin-bottom: 5%;
   font-size: 250%;
   text-align: center;
+}
+
+#search_box_wrapper {
+  position: fixed;
+  /*background-color: rgba(255, 255, 250, 0.5);*/
+  width: 80%;
+  height: 10%;
+  margin-left: 10%;
+}
+
+#search_box {
+  width: 80%;
+  height: 80%;
+  margin-left: 10%;
+  margin-top: 1%;
+  font-size: 250%;
+  text-align: center;
+}
+
+#button_wrapper {
+  /*background-color: red;*/
+  width: 80%;
+  height: 10%;
+  margin-left: 10%;
+  margin-top: 3%;
+}
+
+#new_topic_button {
+  float: right;
+  width: 40%;
+  height: 90%;
+  font-size: 200%;
+}
+
+#other_feelings_button {
+  float: left;
+  width: 40%;
+  height: 90%;
+  font-size: 200%;
 }

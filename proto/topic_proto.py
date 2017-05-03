@@ -16,5 +16,8 @@ class TopicResponseListProto(messages.Message):
     topic = messages.StringField(1, required=True)
     response_list = messages.MessageField(TopicResponseProto, 2, repeated=True)
 
+class SearchProto(messages.Message):
+    search_string = messages.StringField(1, required=True)
+
 class TopicStatus(messages.Message):
     status = messages.StringField(1, required=True)

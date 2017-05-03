@@ -22,10 +22,10 @@ class HomePage(webapp2.RequestHandler):
             elif request_type == 'GET_RANDOM_TOPIC':
                 response = RequestHandler.handle_get_random_topic()
                 self.response.write(response)
-            elif request_type == 'GET_TOPIC':
-                pass
-                # response = RequestHandler.handle_insert_new_comment()
-                # self.response.write(response)
+            elif request_type == 'GET_SEARCH_RESULTS':
+                data = json.loads(self.request.get('data'))
+                response = RequestHandler.handle_search_topics(data)
+                self.response.write(response)
             else:
                 print 'Unknown request type %s' % (request)
         else:

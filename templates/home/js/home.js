@@ -1,12 +1,14 @@
 var home = {};
 
 window.onload = function() {
-  // homeHandler.handleGetRandomTopic();
+  home.setListeners();
+  homeCallback.newTopicButtonClickCallback();
 };
 
-// home.setListeners = function() {
-//   var elem = document.getElementByID("response");
-// };
+home.setListeners = function() {
+  var elem = document.getElementById("new_topic_button");
+  elem.addEventListener("click", homeCallback.newTopicButtonClickCallback);
+};
 
 window.onkeyup = function(e) {
   homeCallback.enterKeyUpCallback(e);

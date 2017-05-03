@@ -32,6 +32,15 @@ class TopicQuery:
         results = query.fetch(1)
         return BackendHelper.topic_results_to_proto(results)
 
+    @staticmethod
+    def get_search_matches(search_request):
+        query_str = search_request.search_string
+        query = TopicModel.query()
+        query = query.filter(TopicModel.topic >= query_str)
+
+        results = query.fetch(10)
+        return BackendHelper.topic_results_to_proto(results)
+
 class TopicHandler:
 
     @staticmethod
@@ -58,3 +67,7 @@ class TopicHandler:
     @staticmethod
     def handle_get_topic_responses(topic_request):
         return TopicQuery.get_topic_responses(topic_request)
+
+    @staticmethod
+    def handle_search_topics(search_request):
+        return TopicQuery.get_search_matches(search_request)

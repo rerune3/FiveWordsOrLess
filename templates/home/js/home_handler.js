@@ -46,3 +46,18 @@ homeHandler.handleGetRandomTopic = function() {
   var url = window.location.origin + '/?' + params;
   helper.httpGetAsync(url, homeCallback.handleGetRandomTopicCallback);
 };
+
+homeHandler.handleGetSearchResults = function(search_string) {
+  var data = {
+    "search_string": search_string,
+  };
+
+  var request_package = {
+    "request_type": homeDefine.GET_SEARCH_RESULTS,
+    "data": JSON.stringify(data)
+  };
+
+  var params = helper.constructURLParams(request_package);
+  var url = window.location.origin + '/?' + params;
+  helper.httpGetAsync(url, homeCallback.handleGetSearchResultsCallback);
+};
