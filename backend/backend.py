@@ -45,6 +45,20 @@ class TopicAPI(remote.Service):
         TopicHandler.handle_insert_topic_response(topic_response)
         return TopicStatus(status='OK')
 
+    @endpoints.method(TopicResponseProto, TopicStatus,
+        name='like_topic_response',
+        path='topic.like_topic_response', http_method='POST')
+    def like_topic_response(self, request):
+        TopicHandler.handle_like_topic_response(request)
+        return TopicStatus(status='OK')
+
+    @endpoints.method(TopicResponseProto, TopicStatus,
+        name='dislike_topic_response',
+        path='topic.dislike_topic_response', http_method='POST')
+    def dislike_topic_response(self, request):
+        TopicHandler.handle_dislike_topic_response(request)
+        return TopicStatus(status='OK')
+
     @endpoints.method(message_types.VoidMessage, TopicListProto,
         name='get_random_topic', path='topic.get_random_topic',
         http_method='GET')

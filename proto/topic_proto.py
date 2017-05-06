@@ -8,9 +8,11 @@ class TopicListProto(messages.Message):
     topic_list = messages.MessageField(TopicProto, 1, repeated=True)
 
 class TopicResponseProto(messages.Message):
-    response = messages.StringField(1, required=True)
-    topic = messages.StringField(2, required=False)
-    count = messages.IntegerField(3, required=False)
+    uuid = messages.StringField(1, required=False)
+    response = messages.StringField(2, required=False)
+    topic = messages.StringField(3, required=False)
+    likes = messages.IntegerField(4, required=False)
+    dislikes = messages.IntegerField(5, required=False)
 
 class TopicResponseListProto(messages.Message):
     topic = messages.StringField(1, required=True)

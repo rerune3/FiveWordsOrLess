@@ -7,4 +7,5 @@ class TopicModel(ndb.Model):
 class TopicResponseModel(ndb.Model):
     topic = ndb.StringProperty(required=True)
     response = ndb.StringProperty(required=True)
-    count = ndb.IntegerProperty(required=False)
+    likes = ndb.IntegerProperty(required=False)
+    dislikes = ndb.IntegerProperty(required=False)

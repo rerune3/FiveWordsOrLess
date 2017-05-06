@@ -12,7 +12,7 @@ homeHandler.handleSendTopicResponse = function(response) {
     var request_package = {
       "request_type": homeDefine.INSERT_TOPIC_RESPONSE,
       "data": JSON.stringify(data)
-    }
+    };
 
     var params = helper.constructURLParams(request_package);
     var url = window.location.origin + "/?" + params;
@@ -29,7 +29,7 @@ homeHandler.handleGetTopicResponses = function(topic) {
     var request_package = {
       "request_type": homeDefine.GET_TOPIC_RESPONSES,
       "data": JSON.stringify(data)
-    }
+    };
 
     var params = helper.constructURLParams(request_package);
     var url = window.location.origin + '/?' + params;
@@ -40,7 +40,7 @@ homeHandler.handleGetTopicResponses = function(topic) {
 homeHandler.handleGetRandomTopic = function() {
   var request_package = {
     "request_type": homeDefine.GET_RANDOM_TOPIC,
-  }
+  };
 
   var params = helper.constructURLParams(request_package);
   var url = window.location.origin + '/?' + params;

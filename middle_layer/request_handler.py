@@ -39,4 +39,20 @@ class RequestHandler:
     @staticmethod
     def handle_search_topics(data):
         url = '%s/topic.search_topics?' % (TOPICS_API_URL);
-        return RequestHandler.send_get_request(url, data)
+        results = RequestHandler.send_get_request(url, data)
+        results_obj = json.loads(results)
+        results_list = results_obj.get('topic_list', None)
+
+        if (results_list is None):
+            return ''
+
+        response_html = ''
+        for topic in results_list:
+            html = '''
+                <div class='search_result'>
+                    <p class='search_result_text'>%s</p>
+                </div>
+                ''' % (topic['topic'])
+            response_html = '%s\n%s' % (response_html, html)
+
+        return response_html

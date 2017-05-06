@@ -8,18 +8,19 @@ from model.topic_model import TopicResponseModel
 
 import random
 import logging
+import uuid
 
 class TopicQuery:
 
     @staticmethod
     def get_topic_responses(topic_request):
         return ndb.gql(('SELECT * FROM TopicResponseModel '
-                          'WHERE topic = :1'), topic_request.topic)
+                          'WHERE topic = :1 ORDER BY count DESC'),
+                          topic_request.topic)
 
     @staticmethod
     def get_topic_response(topic_response):
-        logging.info(topic_response)
-        return ndb.Key('TopicResponseModel', topic_response.response).get()
+        return ndb.Key('TopicResponseModel', topic_response.uuid).get()
 
     @staticmethod
     def get_random_topic():
@@ -35,10 +36,14 @@ class TopicQuery:
     @staticmethod
     def get_search_matches(search_request):
         query_str = search_request.search_string
-        query = TopicModel.query()
-        query = query.filter(TopicModel.topic >= query_str)
+        query_str_variations = [query_str, query_str.title(), query_str.upper()]
 
-        results = query.fetch(10)
+        query = TopicModel.query()
+        query = query.filter(ndb.OR(TopicModel.topic >= query_str_variations[0],
+                                TopicModel.topic >= query_str_variations[1],
+                                TopicModel.topic >= query_str_variations[2]))
+
+        results = query.fetch(50)
         return BackendHelper.topic_results_to_proto(results)
 
 class TopicHandler:
@@ -50,15 +55,22 @@ class TopicHandler:
 
     @staticmethod
     def handle_insert_topic_response(topic_response):
+        TopicResponseModel(id=uuid.uuid4().hex,
+                            topic=topic_response.topic,
+                            response=topic_response.response,
+                            likes=0, dislikes=0).put()
+
+    @staticmethod
+    def handle_like_topic_response(topic_response):
         response_model = TopicQuery.get_topic_response(topic_response)
-        if response_model is None:
-            TopicResponseModel(id=topic_response.response,
-                                topic=topic_response.topic,
-                                response=topic_response.response,
-                                count=0).put()
-        else:
-            response_model.count += 1
-            response_model.put()
+        response_model.likes += 1
+        response_model.put()
+
+    @staticmethod
+    def handle_dislike_topic_response(topic_response):
+        response_model = TopicQuery.get_topic_response(topic_response)
+        response_model.dislikes += 1
+        response_model.put()
 
     @staticmethod
     def handle_get_random_topic():
