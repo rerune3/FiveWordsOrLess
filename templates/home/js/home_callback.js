@@ -8,6 +8,10 @@ homeCallback.handleGetTopicResponsesCallback = function(reply) {
   console.log(reply);
 };
 
+homeCallback.handleLikeDislikeTopicResponseCallback = function(reply) {
+  console.log(reply);
+};
+
 homeCallback.handleGetRandomTopicCallback = function(reply) {
   var data = JSON.parse(reply);
   var topic_object = data.topic_list[0];

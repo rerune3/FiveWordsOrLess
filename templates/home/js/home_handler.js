@@ -37,6 +37,27 @@ homeHandler.handleGetTopicResponses = function(topic) {
   }
 };
 
+homeHandler.handleLikeDislikeTopicResponse = function(id, type) {
+  var data = {
+    "uuid": id
+  };
+
+  var request_type = "";
+  if (type === "like")
+    request_type = homeDefine.LIKE_TOPIC_RESPONSE;
+  else
+    request_type = homeDefine.DISLIKE_TOPIC_RESPONSE;
+
+  var request_package = {
+    "request_type": request_type,
+    "data": data
+  };
+
+  var params = helper.constructURLParams(request_package);
+  var url = window.location.origin + '/?' + params;
+  helper.httpGetAsync(url, homeCallback.handleLikeDislikeTopicResponseCallback);
+};
+
 homeHandler.handleGetRandomTopic = function() {
   var request_package = {
     "request_type": homeDefine.GET_RANDOM_TOPIC,

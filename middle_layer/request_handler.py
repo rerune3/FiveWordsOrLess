@@ -27,6 +27,16 @@ class RequestHandler:
         return RequestHandler.send_post_request(url, data)
 
     @staticmethod
+    def handle_like_topic_response(data):
+        url = '%s/topic.like_topic_response?' % (TOPICS_API_URL);
+        return RequestHandler.send_post_request(url, data)
+
+    @staticmethod
+    def handle_dislike_topic_response(data):
+        url = '%s/topic.dislike_topic_response?' % (TOPICS_API_URL);
+        return RequestHandler.send_post_request(url, data)
+
+    @staticmethod
     def handle_get_random_topic():
         url = '%s/topic.get_random_topic?' % (TOPICS_API_URL);
         return RequestHandler.send_get_request(url, {})

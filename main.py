@@ -42,6 +42,14 @@ class HomePage(webapp2.RequestHandler):
                 data = json.loads(self.request.get('data'))
                 response = RequestHandler.handle_insert_topic_response(data)
                 self.response.write(response)
+            elif request_type == 'LIKE_TOPIC_RESPONSE':
+                data = json.loads(self.request.get('data'))
+                response = RequestHandler.handle_like_topic_response(data)
+                self.response.write(response)
+            elif request_type == 'DISLIKE_TOPIC_RESPONSE':
+                data = json.loads(self.request.get('data'))
+                response = RequestHandler.handle_dislike_topic_response(data)
+                self.response.write(response)
             else:
                 print 'Unknown request type %s' % (request)
 
