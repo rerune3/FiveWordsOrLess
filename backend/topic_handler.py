@@ -15,7 +15,7 @@ class TopicQuery:
     @staticmethod
     def get_topic_responses(topic_request):
         return ndb.gql(('SELECT * FROM TopicResponseModel '
-                          'WHERE topic = :1 ORDER BY count DESC'),
+                          'WHERE topic = :1 ORDER BY likes DESC'),
                           topic_request.topic)
 
     @staticmethod

@@ -141,14 +141,15 @@ body {
 
 .topic_response {
   position: relative;
-  width: 80%;
+  width: 90%;
   height: 15%;
   margin-top: 4%;
-  margin-left: 10%;
+  margin-left: 5%;
   border-bottom: 2px solid black;
 }
 
 .response_text_wrapper {
+  background-color: pink;
   position: relative;
   overflow: auto;
   width: 70%;
@@ -161,15 +162,43 @@ body {
   margin-top: 0%;
 }
 
-.like_button, .dislike_button {
-  font-size: 2vw;
+.like_wrapper, .dislike_wrapper {
   position: relative;
+  background-color: red;
+  /*width: */
+}
+
+.like_wrapper {
+  margin-top: 23%;
+  float: left;
+}
+
+.dislike_wrapper {
+  margin-top: 23%;
+  float: right;
+}
+
+.like_button, .dislike_button {
+  font-size: 1vw;
+  position: relative;
+  width: 70%;
+  height: 37%;
+}
+
+.like_count, .dislike_count {
+  position: relative;
+  margin-top: 2%;
+  float: right;
+  margin-right: 0%;
+  font-size: 1vw;
 }
 
 .likedislike_button_wrapper {
+  background-color: green;
   position: relative;
   font-size: 2vw;
-  margin-top: 1%;
   margin-right: 1%;
   float: right;
+  width: 25%;
+  height: 100%;
 }
