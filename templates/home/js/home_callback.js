@@ -5,28 +5,59 @@ homeCallback.handleSendTopicResponseCallback  = function(reply) {
 };
 
 homeCallback.handleGetTopicResponsesCallback = function(reply) {
-  console.log(reply);
+  if (reply.length === 0) {
+    var text = "Hm... Seems like there no responses to this topic. Be the first!";
+    document.getElementById("topic_responses_wrapper").innerHTML = "";
+    document.getElementById("no_content_text").innerText = text;
+    document.getElementById("no_content_wrapper").style.display = "block";
+    return;
+  }
+
+  document.getElementById("topic_responses_wrapper").innerHTML = reply;
+
+  var likeButtons = document.getElementsByClassName("like_button");
+  var dislikeButtons = document.getElementsByClassName("dislike_button");
+  for (var i = 0; i < likeButtons.length; i++) {
+    var likeButton = likeButtons[i];
+    var dislikeButton = dislikeButtons[i];
+    likeButton.addEventListener("click",
+      homeCallback.likeButtonClickCallback);
+    dislikeButton.addEventListener("click",
+      homeCallback.dislikeButtonClickCallback);
+  }
 };
 
 homeCallback.handleLikeDislikeTopicResponseCallback = function(reply) {
+  // var statusObject = JSON.parse(reply);
   console.log(reply);
 };
 
 homeCallback.handleGetRandomTopicCallback = function(reply) {
+  console.log(reply);
   var data = JSON.parse(reply);
-  var topic_object = data.topic_list[0];
-  document.getElementById("topic").innerText = topic_object.topic;
+  var topicObject = data.topic_list[0];
+  document.getElementById("topic").innerText = topicObject.topic;
 };
 
 homeCallback.handleGetSearchResultsCallback = function(reply) {
   document.getElementById("search_results_wrapper").innerHTML = reply;
 
-  var result_texts = document.getElementsByClassName("search_result_text");
-  for (var i = 0; i < result_texts.length; i++) {
-    var paragraph_elem = result_texts[i];
-    paragraph_elem.addEventListener("click",
+  var resultTexts = document.getElementsByClassName("search_result_text");
+  for (var i = 0; i < resultTexts.length; i++) {
+    var paragraphElem = resultTexts[i];
+    paragraphElem.addEventListener("click",
       homeCallback.searchResultTextClickCallback);
   }
+};
+
+homeCallback.likeButtonClickCallback = function(event) {
+  topicResponseElem = helper.findAncestor(event.target, "topic_response");
+  homeHandler.handleLikeDislikeTopicResponse(topicResponseElem.id, "like");
+};
+
+homeCallback.dislikeButtonClickCallback = function(event) {
+  topicResponseElem = helper.findAncestor(event.target, "topic_response");
+  homeHandler.handleLikeDislikeTopicResponse(topicResponseElem.id, "dislike");
 };
 
 homeCallback.newTopicButtonClickCallback = function(event) {
@@ -35,6 +66,9 @@ homeCallback.newTopicButtonClickCallback = function(event) {
 
 homeCallback.otherFeelingsButtonClickCallback = function(event) {
   var topic = document.getElementById("topic").innerText;
+  document.getElementById("modal_window").style.display = "block";
+  document.getElementById("topic_responses_wrapper").style.display = "block";
+  document.getElementById("search_box").disabled = true;
   homeHandler.handleGetTopicResponses(topic);
 };
 
@@ -50,9 +84,12 @@ homeCallback.searchResultTextClickCallback = function(event) {
 };
 
 homeCallback.modalWindowClickCallback = function(event) {
+  document.getElementById("no_content_wrapper").style.display = "none";
   document.getElementById("search_results_wrapper").style.display = "none";
-  document.getElementById("modal_window").style.display = "none";
+  document.getElementById("topic_responses_wrapper").style.display = "none";
   document.getElementById("search_box").value = "";
+  document.getElementById("search_box").disabled = false;
+  document.getElementById("modal_window").style.display = "none";
 };
 
 homeCallback.enterKeyUpCallback = function(e) {

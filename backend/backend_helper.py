@@ -11,7 +11,9 @@ class BackendHelper:
     def topic_response_model_to_proto(topic_response_model):
         return TopicResponseProto(topic=topic_response_model.topic,
                                     response=topic_response_model.response,
-                                    count=topic_response_model.count)
+                                    likes=topic_response_model.likes,
+                                    dislikes=topic_response_model.dislikes,
+                                    uuid=topic_response_model.key.id())
 
     @staticmethod
     def topic_model_to_proto(topic_model):

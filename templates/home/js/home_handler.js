@@ -9,12 +9,12 @@ homeHandler.handleSendTopicResponse = function(response) {
       "response": response
     };
 
-    var request_package = {
+    var requestPackage = {
       "request_type": homeDefine.INSERT_TOPIC_RESPONSE,
       "data": JSON.stringify(data)
     };
 
-    var params = helper.constructURLParams(request_package);
+    var params = helper.constructURLParams(requestPackage);
     var url = window.location.origin + "/?" + params;
     helper.httpPostAsync(url, homeCallback.handleSendTopicResponseCallback);
   }
@@ -26,12 +26,12 @@ homeHandler.handleGetTopicResponses = function(topic) {
       "topic": topic,
     };
 
-    var request_package = {
+    var requestPackage = {
       "request_type": homeDefine.GET_TOPIC_RESPONSES,
       "data": JSON.stringify(data)
     };
 
-    var params = helper.constructURLParams(request_package);
+    var params = helper.constructURLParams(requestPackage);
     var url = window.location.origin + '/?' + params;
     helper.httpGetAsync(url, homeCallback.handleGetTopicResponsesCallback);
   }
@@ -42,43 +42,46 @@ homeHandler.handleLikeDislikeTopicResponse = function(id, type) {
     "uuid": id
   };
 
-  var request_type = "";
+  var requestType = "";
   if (type === "like")
-    request_type = homeDefine.LIKE_TOPIC_RESPONSE;
+    requestType = homeDefine.LIKE_TOPIC_RESPONSE;
+  else if (type === "dislike")
+    requestType = homeDefine.DISLIKE_TOPIC_RESPONSE;
   else
-    request_type = homeDefine.DISLIKE_TOPIC_RESPONSE;
+    return
 
-  var request_package = {
-    "request_type": request_type,
-    "data": data
+  var requestPackage = {
+    "request_type": requestType,
+    "data": JSON.stringify(data)
   };
 
-  var params = helper.constructURLParams(request_package);
+  var params = helper.constructURLParams(requestPackage);
   var url = window.location.origin + '/?' + params;
-  helper.httpGetAsync(url, homeCallback.handleLikeDislikeTopicResponseCallback);
+  helper.httpPostAsync(url,
+    homeCallback.handleLikeDislikeTopicResponseCallback);
 };
 
 homeHandler.handleGetRandomTopic = function() {
-  var request_package = {
+  var requestPackage = {
     "request_type": homeDefine.GET_RANDOM_TOPIC,
   };
 
-  var params = helper.constructURLParams(request_package);
+  var params = helper.constructURLParams(requestPackage);
   var url = window.location.origin + '/?' + params;
   helper.httpGetAsync(url, homeCallback.handleGetRandomTopicCallback);
 };
 
-homeHandler.handleGetSearchResults = function(search_string) {
+homeHandler.handleGetSearchResults = function(searchString) {
   var data = {
-    "search_string": search_string,
+    "search_string": searchString,
   };
 
-  var request_package = {
+  var requestPackage = {
     "request_type": homeDefine.GET_SEARCH_RESULTS,
     "data": JSON.stringify(data)
   };
 
-  var params = helper.constructURLParams(request_package);
+  var params = helper.constructURLParams(requestPackage);
   var url = window.location.origin + '/?' + params;
   helper.httpGetAsync(url, homeCallback.handleGetSearchResultsCallback);
 };

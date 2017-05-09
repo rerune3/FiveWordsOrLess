@@ -44,7 +44,37 @@ class RequestHandler:
     @staticmethod
     def handle_get_topic_responses(data):
         url = '%s/topic.get_topic_responses?' % (TOPICS_API_URL);
-        return RequestHandler.send_get_request(url, data)
+        responses = RequestHandler.send_get_request(url, data)
+        responses_obj = json.loads(responses)
+        response_list = responses_obj.get('response_list', None)
+
+        if (response_list is None):
+            return ''
+
+        response_html = ''
+        for response in response_list:
+            html = '''
+                  <div id='%s' class='topic_response'>
+                    <div class='response_text_wrapper'>
+                      <p class='response_text'>%s</p>
+                    </div>
+                    <div class='likedislike_button_wrapper'>
+                      <div class='like_wrapper'>
+                        <button class='like_button'>Like</button>
+                        <p class='like_count'>%s</p>
+                      </div>
+                      <div class='dislike_wrapper'>
+                        <button class='dislike_button'>Dislike</button>
+                        <p class='dislike_count'>%s</p>
+                      </div>
+                    </div>
+                  </div>
+                  ''' % (response['uuid'], response['response'],
+                        response['likes'], response['dislikes'])
+
+            response_html = '%s\n%s' % (response_html, html)
+
+        return response_html
 
     @staticmethod
     def handle_search_topics(data):
