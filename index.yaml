@@ -13,11 +13,11 @@ indexes:
 - kind: TopicResponseModel
   properties:
   - name: topic
-  - name: likes
+  - name: count
     direction: desc
 
 - kind: TopicResponseModel
   properties:
   - name: topic
-  - name: count
+  - name: likes
     direction: desc

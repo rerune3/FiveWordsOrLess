@@ -7,6 +7,9 @@ class TopicProto(messages.Message):
 class TopicListProto(messages.Message):
     topic_list = messages.MessageField(TopicProto, 1, repeated=True)
 
+class FootprintProto(messages.Message):
+    ip_address = messages.StringField(1, required=True)
+
 class TopicResponseProto(messages.Message):
     uuid = messages.StringField(1, required=False)
     response = messages.StringField(2, required=False)
